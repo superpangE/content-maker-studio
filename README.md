@@ -1,312 +1,173 @@
 <p align="center">
-  <h1 align="center">Claude Code Game Studios</h1>
+  <h1 align="center">Content Maker Studio</h1>
   <p align="center">
-    Turn a single Claude Code session into a full game development studio.
+    카테고리 하나만 주면 블로그·숏폼이 완성되는 콘텐츠 제작 스튜디오.
     <br />
-    49 agents. 73 skills. One coordinated AI team.
+    Claude Code 세션을 전문 에이전트 팀 + 게이트형 파이프라인으로 운영합니다.
   </p>
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
-  <a href=".claude/agents"><img src="https://img.shields.io/badge/agents-49-blueviolet" alt="49 Agents"></a>
-  <a href=".claude/skills"><img src="https://img.shields.io/badge/skills-73-green" alt="73 Skills"></a>
-  <a href=".claude/hooks"><img src="https://img.shields.io/badge/hooks-12-orange" alt="12 Hooks"></a>
-  <a href=".claude/rules"><img src="https://img.shields.io/badge/rules-11-red" alt="11 Rules"></a>
   <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/built%20for-Claude%20Code-f5f5f5?logo=anthropic" alt="Built for Claude Code"></a>
-  <a href="https://www.buymeacoffee.com/donchitos3"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support%20this%20project-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee"></a>
-  <a href="https://github.com/sponsors/Donchitos"><img src="https://img.shields.io/badge/GitHub%20Sponsors-Support%20this%20project-ea4aaa?logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License"></a>
 </p>
 
 ---
 
-## Why This Exists
+## 이게 뭐예요?
 
-Building a game solo with AI is powerful — but a single chat session has no structure. No one stops you from hardcoding magic numbers, skipping design docs, or writing spaghetti code. There's no QA pass, no design review, no one asking "does this actually fit the game's vision?"
+한국어 콘텐츠를 **집계(aggregation) 기반**으로 만드는 스튜디오입니다. 카테고리(예: `맛집`, `연예뉴스`, `국내야구`)를 주면 실제 한국어 소스(네이버 뉴스·블로그)를 모아 **하나의 핫한 주제**를 골라 깊게 파고, 원문 그대로 베끼지 않은 글로 다시 써서 플랫폼별 발행본까지 만듭니다.
 
-**Claude Code Game Studios** solves this by giving your AI session the structure of a real studio. Instead of one general-purpose assistant, you get 49 specialized agents organized into a studio hierarchy — directors who guard the vision, department leads who own their domains, and specialists who do the hands-on work. Each agent has defined responsibilities, escalation paths, and quality gates.
+각 단계는 전문 에이전트가 맡고, 결과물은 **승인 즉시 파일로 저장**됩니다. 대화가 끊겨도 마지막 저장 단계부터 이어집니다.
 
-The result: you still make every decision, but now you have a team that asks the right questions, catches mistakes early, and keeps your project organized from first brainstorm to launch.
+- **블로그** — 네이버 블로그 / 티스토리·워드프레스
+- **숏폼** — YouTube Shorts / Instagram Reels / TikTok (9:16 세로)
 
----
-
-## Table of Contents
-
-- [What's Included](#whats-included)
-- [Studio Hierarchy](#studio-hierarchy)
-- [Slash Commands](#slash-commands)
-- [Getting Started](#getting-started)
-- [Upgrading](#upgrading)
-- [Project Structure](#project-structure)
-- [How It Works](#how-it-works)
-- [Design Philosophy](#design-philosophy)
-- [Customization](#customization)
-- [Platform Support](#platform-support)
-- [Community](#community)
-- [Supporting This Project](#supporting-this-project)
-- [License](#license)
+> 한 편의 글/영상 = 한 개의 폴더. 모든 산출물(소스·브리프·초고·발행본)이 함께 모입니다.
 
 ---
 
-## What's Included
+## 빠른 시작
 
-| Category | Count | Description |
-|----------|-------|-------------|
-| **Agents** | 49 | Specialized subagents across design, programming, art, audio, narrative, QA, and production |
-| **Skills** | 73 | Slash commands for every workflow phase (`/start`, `/design-system`, `/create-epics`, `/create-stories`, `/dev-story`, `/story-done`, etc.) |
-| **Hooks** | 12 | Automated validation on commits, pushes, asset changes, session lifecycle, agent audit trail, and gap detection |
-| **Rules** | 11 | Path-scoped coding standards enforced when editing gameplay, engine, AI, UI, network code, and more |
-| **Templates** | 41 | Document templates for GDDs, UX specs, ADRs, sprint plans, HUD design, accessibility, and more |
-
-## Studio Hierarchy
-
-Agents are organized into three tiers, matching how real studios operate:
-
-```
-Tier 1 — Directors (Opus)
-  creative-director    technical-director    producer
-
-Tier 2 — Department Leads (Sonnet)
-  game-designer        lead-programmer       art-director
-  audio-director       narrative-director    qa-lead
-  release-manager      localization-lead
-
-Tier 3 — Specialists (Sonnet/Haiku)
-  gameplay-programmer  engine-programmer     ai-programmer
-  network-programmer   tools-programmer      ui-programmer
-  systems-designer     level-designer        economy-designer
-  technical-artist     sound-designer        writer
-  world-builder        ux-designer           prototyper
-  performance-analyst  devops-engineer       analytics-engineer
-  security-engineer    qa-tester             accessibility-specialist
-  live-ops-designer    community-manager
+```bash
+git clone https://github.com/superpangE/content-maker-studio.git
+cd content-maker-studio
+claude
 ```
 
-### Engine Specialists
+Claude Code 세션 안에서:
 
-The template includes agent sets for all three major engines. Use the set that matches your project:
+1. **`/setup-content`** — 브랜드 보이스 + 플랫폼 프로필 + (선택) 형태 example 1회 설정. **먼저 실행**.
+2. **`/blog <카테고리>`** — 블로그 한 편을 끝까지 생성.
+3. **`/shorts <카테고리>`** — 숏폼 제작 스펙(+선택적 렌더)을 끝까지 생성.
 
-| Engine | Lead Agent | Sub-Specialists |
-|--------|-----------|-----------------|
-| **Godot 4** | `godot-specialist` | GDScript, Shaders, GDExtension |
-| **Unity** | `unity-specialist` | DOTS/ECS, Shaders/VFX, Addressables, UI Toolkit |
-| **Unreal Engine 5** | `unreal-specialist` | GAS, Blueprints, Replication, UMG/CommonUI |
+예: `/blog 맛집` · `/shorts 국내야구`
 
-## Slash Commands
-
-Type `/` in Claude Code to access all 73 skills:
-
-**Onboarding & Navigation**
-`/start` `/help` `/project-stage-detect` `/setup-engine` `/adopt`
-
-**Game Design**
-`/brainstorm` `/map-systems` `/design-system` `/quick-design` `/review-all-gdds` `/propagate-design-change`
-
-**Art & Assets**
-`/art-bible` `/asset-spec` `/asset-audit`
-
-**UX & Interface Design**
-`/ux-design` `/ux-review`
-
-**Architecture**
-`/create-architecture` `/architecture-decision` `/architecture-review` `/create-control-manifest`
-
-**Stories & Sprints**
-`/create-epics` `/create-stories` `/dev-story` `/sprint-plan` `/sprint-status` `/story-readiness` `/story-done` `/estimate`
-
-**Reviews & Analysis**
-`/design-review` `/code-review` `/balance-check` `/content-audit` `/scope-check` `/perf-profile` `/tech-debt` `/gate-check` `/consistency-check` `/security-audit`
-
-**QA & Testing**
-`/qa-plan` `/smoke-check` `/soak-test` `/regression-suite` `/test-setup` `/test-helpers` `/test-evidence-review` `/test-flakiness` `/skill-test` `/skill-improve`
-
-**Production**
-`/milestone-review` `/retrospective` `/bug-report` `/bug-triage` `/reverse-document` `/playtest-report`
-
-**Release**
-`/release-checklist` `/launch-checklist` `/changelog` `/patch-notes` `/hotfix` `/day-one-patch`
-
-**Creative & Content**
-`/prototype` `/onboard` `/localize`
-
-**Team Orchestration** (coordinate multiple agents on a single feature)
-`/team-combat` `/team-narrative` `/team-ui` `/team-release` `/team-polish` `/team-audio` `/team-level` `/team-live-ops` `/team-qa`
-
-## Getting Started
-
-### Prerequisites
-
-- [Git](https://git-scm.com/)
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) (`npm install -g @anthropic-ai/claude-code`)
-- **Recommended**: [jq](https://jqlang.github.io/jq/) (for hook validation) and Python 3 (for JSON validation)
-
-All hooks fail gracefully if optional tools are missing — nothing breaks, you just lose validation.
-
-### Setup
-
-1. **Clone or use as template**:
-   ```bash
-   git clone https://github.com/Donchitos/Claude-Code-Game-Studios.git my-game
-   cd my-game
-   ```
-
-2. **Open Claude Code** and start a session:
-   ```bash
-   claude
-   ```
-
-3. **Run `/start`** — the system asks where you are (no idea, vague concept,
-   clear design, existing work) and guides you to the right workflow. No assumptions.
-
-   Or jump directly to a specific skill if you already know what you need:
-   - `/brainstorm` — explore game ideas from scratch
-   - `/setup-engine godot 4.6` — configure your engine if you already know
-   - `/project-stage-detect` — analyze an existing project
-
-## Upgrading
-
-Already using an older version of this template? See [UPGRADING.md](UPGRADING.md)
-for step-by-step migration instructions, a breakdown of what changed between
-versions, and which files are safe to overwrite vs. which need a manual merge.
-
-## Project Structure
-
-```
-CLAUDE.md                           # Master configuration
-.claude/
-  settings.json                     # Hooks, permissions, safety rules
-  agents/                           # 49 agent definitions (markdown + YAML frontmatter)
-  skills/                           # 73 slash commands (subdirectory per skill)
-  hooks/                            # 12 hook scripts (bash, cross-platform)
-  rules/                            # 11 path-scoped coding standards
-  statusline.sh                     # Status line script (context%, model, stage, epic breadcrumb)
-  docs/
-    workflow-catalog.yaml           # 7-phase pipeline definition (read by /help)
-    templates/                      # 41 document templates
-src/                                # Game source code
-assets/                             # Art, audio, VFX, shaders, data files
-design/                             # GDDs, narrative docs, level designs
-docs/                               # Technical documentation and ADRs
-tests/                              # Test suites (unit, integration, performance, playtest)
-tools/                              # Build and pipeline tools
-prototypes/                         # Throwaway prototypes (isolated from src/)
-production/                         # Sprint plans, milestones, release tracking
-```
-
-## How It Works
-
-### Agent Coordination
-
-Agents follow a structured delegation model:
-
-1. **Vertical delegation** — directors delegate to leads, leads delegate to specialists
-2. **Horizontal consultation** — same-tier agents can consult each other but can't make binding cross-domain decisions
-3. **Conflict resolution** — disagreements escalate up to the shared parent (`creative-director` for design, `technical-director` for technical)
-4. **Change propagation** — cross-department changes are coordinated by `producer`
-5. **Domain boundaries** — agents don't modify files outside their domain without explicit delegation
-
-### Collaborative, Not Autonomous
-
-This is **not** an auto-pilot system. Every agent follows a strict collaboration protocol:
-
-1. **Ask** — agents ask questions before proposing solutions
-2. **Present options** — agents show 2-4 options with pros/cons
-3. **You decide** — the user always makes the call
-4. **Draft** — agents show work before finalizing
-5. **Approve** — nothing gets written without your sign-off
-
-You stay in control. The agents provide structure and expertise, not autonomy.
-
-### Automated Safety
-
-**Hooks** run automatically on every session:
-
-| Hook | Trigger | What It Does |
-|------|---------|--------------|
-| `validate-commit.sh` | PreToolUse (Bash) | Checks for hardcoded values, TODO format, JSON validity, design doc sections — exits early if the command is not `git commit` |
-| `validate-push.sh` | PreToolUse (Bash) | Warns on pushes to protected branches — exits early if the command is not `git push` |
-| `validate-assets.sh` | PostToolUse (Write/Edit) | Validates naming conventions and JSON structure — exits early if the file is not in `assets/` |
-| `session-start.sh` | Session open | Shows current branch and recent commits for orientation |
-| `detect-gaps.sh` | Session open | Detects fresh projects (suggests `/start`) and missing design docs when code or prototypes exist |
-| `pre-compact.sh` | Before compaction | Preserves session progress notes |
-| `post-compact.sh` | After compaction | Reminds Claude to restore session state from `active.md` |
-| `notify.sh` | Notification event | Shows Windows toast notification via PowerShell |
-| `session-stop.sh` | Session close | Archives `active.md` to session log and records git activity |
-| `log-agent.sh` | Agent spawned | Audit trail start — logs subagent invocation |
-| `log-agent-stop.sh` | Agent stops | Audit trail stop — completes subagent record |
-| `validate-skill-change.sh` | PostToolUse (Write/Edit) | Advises running `/skill-test` after any `.claude/skills/` change |
-
-> **Note**: `validate-commit.sh`, `validate-assets.sh`, and `validate-skill-change.sh` fire on every Bash/Write tool call and exit immediately (exit 0) when the command or file path is not relevant. This is normal hook behavior — not a performance concern.
-
-**Permission rules** in `settings.json` auto-allow safe operations (git status, test runs) and block dangerous ones (force push, `rm -rf`, reading `.env` files).
-
-### Path-Scoped Rules
-
-Coding standards are automatically enforced based on file location:
-
-| Path | Enforces |
-|------|----------|
-| `src/gameplay/**` | Data-driven values, delta time usage, no UI references |
-| `src/core/**` | Zero allocations in hot paths, thread safety, API stability |
-| `src/ai/**` | Performance budgets, debuggability, data-driven parameters |
-| `src/networking/**` | Server-authoritative, versioned messages, security |
-| `src/ui/**` | No game state ownership, localization-ready, accessibility |
-| `design/gdd/**` | Required 8 sections, formula format, edge cases |
-| `tests/**` | Test naming, coverage requirements, fixture patterns |
-| `prototypes/**` | Relaxed standards, README required, hypothesis documented |
-
-## Design Philosophy
-
-This template is grounded in professional game development practices:
-
-- **MDA Framework** — Mechanics, Dynamics, Aesthetics analysis for game design
-- **Self-Determination Theory** — Autonomy, Competence, Relatedness for player motivation
-- **Flow State Design** — Challenge-skill balance for player engagement
-- **Bartle Player Types** — Audience targeting and validation
-- **Verification-Driven Development** — Tests first, then implementation
-
-## Customization
-
-This is a **template**, not a locked framework. Everything is meant to be customized:
-
-- **Add/remove agents** — delete agent files you don't need, add new ones for your domains
-- **Edit agent prompts** — tune agent behavior, add project-specific knowledge
-- **Modify skills** — adjust workflows to match your team's process
-- **Add rules** — create new path-scoped rules for your project's directory structure
-- **Tune hooks** — adjust validation strictness, add new checks
-- **Pick your engine** — use the Godot, Unity, or Unreal agent set (or none)
-- **Set review intensity** — `full` (all director gates), `lean` (phase gates only), or `solo` (none). Set during `/start` or edit `production/review-mode.txt`. Override per-run with `--review solo` on any skill.
-
-## Platform Support
-
-Primary development and testing on **Windows 10** with Git Bash. All hooks use POSIX-compatible patterns (`grep -E`, not `grep -P`) and include fallbacks for missing tools, so they should run on macOS and Linux. The `notify.sh` hook uses PowerShell for Windows toast notifications and is a no-op elsewhere — desktop notifications on macOS/Linux are not yet wired. Cross-platform testing is ongoing; please file issues for any platform-specific breakage.
-
-## Community
-
-- **Discussions** — [GitHub Discussions](https://github.com/Donchitos/Claude-Code-Game-Studios/discussions) for questions, ideas, and showcasing what you've built
-- **Issues** — [Bug reports and feature requests](https://github.com/Donchitos/Claude-Code-Game-Studios/issues)
+설정을 건너뛰어도 기본값으로 동작하며, `/blog`·`/shorts` 첫 실행 때 형태 example이 없으면 1회 물어봅니다.
 
 ---
 
-## Supporting This Project
+## 파이프라인
 
-Claude Code Game Studios is free and open source. If it saves you time or helps you ship your game, consider supporting continued development:
+### 블로그
 
-<p>
-  <a href="https://www.buymeacoffee.com/donchitos3"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee"></a>
-  &nbsp;
-  <a href="https://github.com/sponsors/Donchitos"><img src="https://img.shields.io/badge/GitHub%20Sponsors-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
-</p>
+```
+/blog <카테고리>
+  0. 셋업 확인 (brand-voice, 형태 example) + 포스트 폴더
+  1.  소스 수집        (source-collector)    → sources.md
+  1.5 주제 선택        (오케스트레이터가 1개 선정)
+  2.  브리프           (content-strategist)  → brief.md
+  3.  아웃라인         (content-strategist)  → outline.md
+  4.  마스터 초고      (blog-writer)         → draft.md
+  5.  플랫폼 변환      (seo-editor)          → naver.md / tistory.md
+```
 
-- **[Buy Me a Coffee](https://www.buymeacoffee.com/donchitos3)** — one-time support
-- **[GitHub Sponsors](https://github.com/sponsors/Donchitos)** — recurring support through GitHub
+목표 깊이: **한 주제로 1,500~2,500자.** 여러 주제를 묶지 않고 하나를 깊게 다룹니다.
 
-Sponsorships help fund time spent maintaining skills, adding new agents, keeping up with Claude Code and engine API changes, and responding to community issues.
+### 숏폼
+
+```
+/shorts <카테고리>
+  0. 셋업 + shorts-style + 형태 example + 플랫폼 프로필
+  1.  소스 수집        (source-collector)
+  1.5 주제 선택        (오케스트레이터)
+  2.  브리프           (content-strategist)  → brief.md
+  3.  대본             (script-writer)       → script.md
+  4.  스토리보드        (shot-designer)       → storyboard.md + shots.json
+  5.  렌더 스크립트     (오케스트레이터)       → produce.sh
+```
+
+**2단계 출력.** Layer 1(스펙: `script.md`/`storyboard.md`/`shots.json`)은 **API 키 없이** 항상 생성됩니다. Layer 2(`produce.sh`)는 TTS(ElevenLabs)·영상 생성(Veo) API를 호출해 ffmpeg로 9:16 MP4를 렌더합니다. 키가 없으면 무엇이 필요한지 안내하고 깔끔히 종료합니다.
+
+```bash
+export ELEVENLABS_API_KEY=...   # TTS (선택)
+export VEO_API_KEY=...          # 영상 생성 (선택)
+```
 
 ---
 
-*Built for Claude Code. Maintained and extended — contributions welcome via [GitHub Discussions](https://github.com/Donchitos/Claude-Code-Game-Studios/discussions).*
+## 에이전트
+
+포맷 공통:
+
+| 에이전트 | 담당 | 산출 |
+|---|---|---|
+| **source-collector** | 네이버 뉴스·블로그에서 원본 소스 수집 | `sources.md` |
+| **content-strategist** | 왜/누구에게/어떤 앵글/키워드 + 구조 | `brief.md`, `outline.md` |
+
+블로그 전용:
+
+| 에이전트 | 담당 | 산출 |
+|---|---|---|
+| **blog-writer** | 플랫폼 무관 마스터 초고 (보이스·흐름) | `draft.md` |
+| **seo-editor** | 플랫폼별 변환·최적화 | `naver.md`, `tistory.md` |
+
+숏폼 전용:
+
+| 에이전트 | 담당 | 산출 |
+|---|---|---|
+| **script-writer** | 세로형 대본 (훅/본문/CTA, 비트) | `script.md` |
+| **shot-designer** | 샷별 제작 스펙 (Veo 프롬프트 + 자막 + TTS + 타이밍) | `storyboard.md`, `shots.json` |
+
+별도 디렉터 에이전트는 없습니다. `/blog`·`/shorts` 스킬이 오케스트레이터이며, 사용자가 카테고리를 주면 파이프라인이 끝까지 돕니다.
+
+---
+
+## 디렉토리 구조
+
+```text
+content/
+├── config/
+│   ├── brand-voice.md          # 페르소나, 톤, 금지 표현
+│   ├── blog-example.md         # 블로그 형태 참고 (구조 + 문체) — 셋업/첫 실행 때 생성
+│   ├── shorts-example.md       # 숏폼 형태 참고 (구조 + 문체) — 셋업/첫 실행 때 생성
+│   ├── shorts-style.md         # 고정된 모션그래픽 비주얼 아이덴티티 (Veo 기준)
+│   └── platforms/
+│       ├── naver.md            # 네이버 블로그 변환 규칙
+│       ├── tistory.md          # 티스토리/워드프레스(구글 SEO) 규칙
+│       ├── shorts-youtube.md   # YouTube Shorts 프로필
+│       ├── shorts-reels.md     # Instagram Reels 프로필
+│       └── shorts-tiktok.md    # TikTok 프로필
+├── posts/
+│   └── YYYY-MM-DD-<slug>/       # 블로그 1편 = 1폴더
+└── shorts/
+    └── posts/
+        └── YYYY-MM-DD-<slug>/   # 숏폼 1편 = 1폴더
+```
+
+`content/config/`는 버전 관리되어 clone에 포함됩니다(기본값 동봉). 생성된 `content/posts/`·`content/shorts/`는 `.gitignore` 처리되어 **fresh clone은 빈 상태로 시작**합니다.
+
+---
+
+## 설계 원칙
+
+- **파일 = 메모리.** 승인된 단계는 전부 디스크에 있고, 대화는 보조입니다.
+- **1편 = 1폴더.** 한 글/영상의 모든 산출물이 한곳에 모입니다.
+- **마스터 초고 후 변환.** `draft.md`를 한 번(플랫폼 무관) 쓰고 플랫폼별 버전을 파생합니다. 플랫폼마다 본문을 다시 쓰지 않습니다.
+- **Example = 형태.** `*-example.md`는 구조와 문체(모양)를 가르치고, 주제·사실은 매번 소스에서 새로 옵니다. 한 번 등록해 매 실행 재사용합니다.
+- **데이터 기반 플랫폼.** 플랫폼 규칙은 config 파일에, 변환 로직은 seo-editor에. 플랫폼 추가 = 프로필 파일 하나 추가.
+
+자세한 운영 가이드: **[.claude/docs/content-studio.md](.claude/docs/content-studio.md)**
+
+---
+
+## 새 포맷 확장
+
+블로그·숏폼과 같은 패턴으로 새 포맷을 추가합니다:
+
+1. 필요하면 config 추가 (예: `content/config/platforms/<플랫폼>.md`)
+2. 새 craft를 맡을 전문 에이전트 추가 (예: `script-writer`)
+3. 같은 게이트형 파이프라인을 가진 오케스트레이터 스킬 추가 (예: `/shorts`)
+4. `content-strategist` 재사용 — 주제·앵글 결정은 포맷 간 공유
+
+---
+
+## 게임 스튜디오 템플릿 유산
+
+이 프로젝트는 게임 스튜디오 템플릿에서 시작했습니다. 게임용 에이전트(`.claude/agents/*`의 게임 역할), 게임 스킬(`brainstorm`, `design-system` 등), 템플릿, 그리고 `design/` `src/` `production/` 트리가 아직 남아 있지만 **콘텐츠 워크플로에는 사용되지 않습니다.** 참고용으로 남겨둔 것이며 삭제하지 않았습니다. 콘텐츠 작업에는 위에 설명한 콘텐츠 에이전트·스킬만 사용하세요.
+
+---
 
 ## License
 
-MIT License. See [LICENSE](LICENSE) for details.
+MIT License. 자세한 내용은 [LICENSE](LICENSE) 참고.
