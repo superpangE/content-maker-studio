@@ -55,12 +55,20 @@ decision needs the user's editorial judgment.
 2. Read `content/config/shorts-style.md` (the locked visual identity). If
    missing, proceed with motion-graphics defaults but note it.
 
-3. Determine target platforms: check `content/config/platforms/shorts-*.md`.
+3. Read the **format example** `content/config/shorts-example.md` (script
+   structure + style reference). If it is missing, ask the user **once**:
+   > 이 숏폼의 형태(구조·문체) 참고할 example 대본이 있나요? 붙여넣거나 파일 경로를 주세요. (없으면 건너뜁니다)
+   - If they provide one, write it to `content/config/shorts-example.md` and use it.
+   - If they skip, write a sentinel file containing `(건너뜀 — example 없이 진행)`
+     so this is never asked again; the user can add one later via `/setup-content`.
+   - Treat a sentinel file the same as "no example".
+
+4. Determine target platforms: check `content/config/platforms/shorts-*.md`.
    - Produce a spec for every `shorts-<platform>.md` that exists
      (youtube / reels / tiktok). The single set of shots is shared; only CTA
      captions and total length differ per platform (shot-designer handles this).
 
-4. **Do not create the post folder yet** — wait until Step 1.5 when the single
+5. **Do not create the post folder yet** — wait until Step 1.5 when the single
    topic is selected. The slug comes from the topic name, not the category.
 
    Resume logic (if a folder matching today's date + topic slug already exists
@@ -121,10 +129,14 @@ Spawn `script-writer` via Task. Pass:
 - `content/config/brand-voice.md` content
 - `brief.md` content
 - `sources.md` content
+- `content/config/shorts-example.md` content **if it is a real example** (skip if
+  missing or a sentinel)
 
 Instruct it to:
 - Write from the sources, not from training memory
 - Structure as hook (0~3초) → body → CTA, 8~12 beats, 40~60초
+- **If an example was passed**, mirror its hook/body/CTA structure, beat feel, and
+  narration style (medium fidelity) — match the shape, not the words
 - Return the full beat-numbered script as text (no file writes)
 
 After it returns, write `script.md`.

@@ -33,8 +33,8 @@ orchestrators; the user gives a category and the pipeline runs to completion.
 
 ## Skills
 
-- **`/setup-content`** — one-time (or anytime) setup of brand voice + platform
-  profiles. Run this first.
+- **`/setup-content`** — one-time (or anytime) setup of brand voice, platform
+  profiles, and optional format examples. Run this first.
 - **`/blog <카테고리>`** — single-topic blog pipeline. Source collection → topic
   selection → brief → outline → master draft → platform conversion.
 - **`/shorts <카테고리>`** — single-topic short-form video pipeline. Source
@@ -45,7 +45,7 @@ orchestrators; the user gives a category and the pipeline runs to completion.
 
 ```
 /blog <주제>
-  0. Setup check + post folder
+  0. Setup check (brand-voice, format example) + post folder
   1. Strategy   (content-strategist) → 🚦A → brief.md
   2. Research   (optional)           → 🚦B → research.md
   3. Outline    (content-strategist) → 🚦C → outline.md
@@ -60,7 +60,7 @@ resumes from the last saved stage.
 
 ```
 /shorts <카테고리>
-  0. Setup + read shorts-style.md + platform profiles
+  0. Setup + read shorts-style.md + format example + platform profiles
   1. Source collection (source-collector, broad)      → sources (raw)
   1.5 Topic selection (orchestrator picks one story)   → sources.md + folder
   2. Brief        (content-strategist)                 → brief.md
@@ -81,6 +81,8 @@ a text-to-video API (Veo), then assembling with ffmpeg. With no keys set,
 content/
 ├── config/
 │   ├── brand-voice.md          # persona, tone, forbidden expressions
+│   ├── blog-example.md         # blog form reference (structure + style)
+│   ├── shorts-example.md       # shorts form reference (structure + style)
 │   ├── shorts-style.md         # locked motion-graphics visual identity (Veo base)
 │   └── platforms/
 │       ├── naver.md            # Naver blog conversion rules
@@ -105,6 +107,8 @@ content/
 - **One post = one folder.** All artifacts for a post live together.
 - **Master draft, then convert.** Write `draft.md` once (platform-agnostic), then
   produce per-platform versions. Never re-write the body per platform.
+- **Example = form.** `*-example.md` teaches structure and style (the shape);
+  topic and facts always come fresh from sources. Captured once, reused every run.
 - **Data-driven platforms.** Platform rules live in config files; conversion
   logic lives in the seo-editor. Adding a platform = adding one profile file.
 

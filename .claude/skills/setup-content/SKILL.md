@@ -53,7 +53,33 @@ For a new platform not yet profiled, create `content/config/platforms/<slug>.md`
 following the same structure as the existing profiles. Ask before writing each
 file.
 
-## 4. Confirm and hand off
+## 4. Content format example (optional)
+
+Ask whether the user has a **reference piece** whose *form* — structure + writing
+style — new content should resemble. This is separate from brand-voice (which
+covers tone): the example teaches shape (section layout, length, how it opens and
+closes), while topic and facts always come fresh from sources.
+
+Capture one per format the user produces:
+- **Blog** → `content/config/blog-example.md`
+- **Shorts** → `content/config/shorts-example.md`
+
+For each, ask the user to paste the full example text or give a file path (read
+it with Read if a path is given). Then write the config file in this shape,
+asking "May I write this to content/config/<format>-example.md?" first:
+
+```
+# Blog Example (형태 참고 샘플)
+> 새 글이 이 글의 구조·문체를 닮게 합니다. 내용은 매번 주제에 맞게 새로 씁니다.
+> 갱신: /setup-content 또는 직접 편집.
+---
+(example 전문)
+```
+
+Optional — if the user has no example, skip it. `/blog` and `/shorts` ask once on
+first run if the file is still missing.
+
+## 5. Confirm and hand off
 
 Summarize what was written. Tell the user they can now run:
 

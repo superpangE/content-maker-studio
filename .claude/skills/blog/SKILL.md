@@ -43,11 +43,19 @@ a decision requires the user's editorial judgment.
 1. Read `content/config/brand-voice.md`. If missing, proceed with defaults
    (friendly expert, 존댓말, no AI clichés).
 
-2. Determine target platform: read `content/config/platforms/*.md`.
+2. Read the **format example** `content/config/blog-example.md` (structure +
+   style reference). If it is missing, ask the user **once**:
+   > 이 블로그의 형태(구조·문체) 참고할 example 글이 있나요? 붙여넣거나 파일 경로를 주세요. (없으면 건너뜁니다)
+   - If they provide one, write it to `content/config/blog-example.md` and use it.
+   - If they skip, write a sentinel file containing `(건너뜀 — example 없이 진행)`
+     so this is never asked again; the user can add one later via `/setup-content`.
+   - Treat a sentinel file the same as "no example".
+
+3. Determine target platform: read `content/config/platforms/*.md`.
    - If both naver.md and tistory.md exist, produce both.
    - If only one exists, produce that one.
 
-3. **Do not create the post folder yet** — wait until Step 1.5 when the
+4. **Do not create the post folder yet** — wait until Step 1.5 when the
    single topic is selected. The slug will come from the topic name, not
    the category name.
 
@@ -111,11 +119,16 @@ After the agent returns the brief, write `brief.md` immediately.
 Spawn `content-strategist` again via Task. Pass:
 - `brief.md`
 - `sources.md`
+- `content/config/blog-example.md` content **if it is a real example** (skip if
+  missing or a sentinel)
 
 Ask it to produce an outline structured for **deep single-topic coverage**:
 - 3-4 H2 sections, each going deeper into one aspect of the topic
 - Each section: header + core message + which source feeds it + 자 budget
 - Total target: 1,500~2,500자
+- **If an example was passed**, use its section layout, length balance, and
+  opening/closing pattern as the structural template (medium fidelity) — match
+  the shape, fill it with this topic's content
 
 Write `outline.md` immediately after it returns.
 
@@ -128,11 +141,16 @@ Spawn `blog-writer` via Task. Pass:
 - `brief.md` content
 - `sources.md` content
 - `outline.md` content
+- `content/config/blog-example.md` content **if it is a real example** (skip if
+  missing or a sentinel)
 
 Instruct it to:
 - Write from the sources, not from training memory
 - Rewrite all facts in its own words
 - Follow the outline structure
+- **If an example was passed**, mirror its structure and writing style (rhythm,
+  sentence feel, how sections open and close) — but never copy its sentences; the
+  content comes from the outline and sources
 - Return the full draft as text (do not write files)
 
 After it returns, write `draft.md`.
