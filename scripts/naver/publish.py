@@ -484,12 +484,15 @@ def main() -> int:
             fail("발행 확인 버튼")
         confirm.click()
 
-        # 발행되면 글 페이지로 넘어간다.
+        # 발행되면 글 페이지(.../<blog_id>/<logNo>)로 넘어간다.
+        # 주의: r"blog\.naver\.com/.+" 로 기다리면 에디터 URL
+        # (blog.naver.com/<id>?Redirect=Write) 에도 매칭돼 발행 실패를 성공으로 읽는다.
+        posted = re.compile(rf"blog\.naver\.com/{re.escape(args.blog_id)}/(\d+)")
         try:
-            page.wait_for_url(re.compile(r"blog\.naver\.com/.+"), timeout=30000)
-            page.wait_for_load_state("networkidle")
+            page.wait_for_url(posted, timeout=30000)
         except PWTimeout:
-            fail("발행 후 이동 (발행이 안 됐을 수 있습니다)")
+            fail("발행 후 글 페이지 이동 (발행이 안 됐습니다)")
+        page.wait_for_load_state("networkidle")
 
         url = page.url
         browser.close()
