@@ -42,6 +42,11 @@ the one thing worth reading about never makes it into the post.
    (structure, section rhythm, how it opens and closes, sentence feel).
    Never copy their sentences; the content comes from this trip/meal/product.
 
+   **Read only the templates that apply to this review's type.** A filename
+   prefixed with a type (`맛집-…`) is scoped to that type — do not let a 맛집
+   example shape a 제품 review. Unprefixed files apply to every type. You won't
+   know the type until Step 1 classifies it, so do this read after that.
+
    If the directory is empty or missing, mention it once and move on:
    > 참고할 후기 예시가 없어서 기본 구조로 씁니다. 예시를 주시면 그 양식으로 맞춰 드려요.
 
@@ -49,11 +54,38 @@ the one thing worth reading about never makes it into the post.
    a marker written during one run would silently prevent the user from ever
    being offered the option again, which is worse than mentioning it each time.
    If the user hands you example posts at any point, write them to
-   `content/config/review-templates/<slug>.md` and use them from then on.
+   `content/config/review-templates/<type>-<slug>.md` and use them from then on.
 
 3. Locate the photos. The user gives a folder path (or drags files in). Glob it
    for `*.jpg *.jpeg *.png *.heic *.webp`. If no photos are found, tell the user
    and ask for the path — do not proceed photoless.
+
+4. Check the photo set against what a post actually needs:
+
+   | | 최소 | 왜 |
+   |---|---|---|
+   | 가게 외관 | 1장 | 독자가 찾아갈 때 보는 것. 간판·입구 |
+   | 음식 | 3장 | 한 장이면 "사진→짧은글" 리듬이 안 나온다 |
+   | 주차 | 1장 | 주차장, **가게 주차가 안 되면 근처 공영주차장 네이버지도 캡처** |
+
+   This is the whole reason the diary rhythm exists — one photo collapses it, and
+   the post comes out as a compressed summary instead. Read `brand-voice.md`'s
+   photo-rhythm note if you need convincing.
+
+   **If the set is short, ask once — naming exactly what's missing.** Then take
+   whatever answer you get:
+
+   > 사진이 음식 1장뿐이네요. 외관 1장 · 음식 2장 더 · 주차 1장 있으면 일기형으로
+   > 제대로 씁니다. 있으면 주세요. 없으면 지금 걸로 갑니다.
+
+   If the user says they don't have more, **proceed with what you have** — do not
+   block, do not nag twice, do not re-ask on the next stage. Write the shorter
+   post honestly, and note the missing photos in `todo.md` so a future run can
+   redo it properly.
+
+   **Never compensate for a missing photo with prose.** No invented 외관 description,
+   no "주차장은 이랬어요" written from the user's one-line memory. Fewer photos means
+   a shorter post, not a padded one.
 
 ---
 

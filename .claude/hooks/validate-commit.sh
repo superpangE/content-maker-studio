@@ -15,15 +15,23 @@ else
     COMMAND=$(echo "$INPUT" | grep -oE '"command"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/"command"[[:space:]]*:[[:space:]]*"//;s/"$//')
 fi
 
-# Only process git commit commands
-if ! echo "$COMMAND" | grep -qE '^git[[:space:]]+commit'; then
+# Only process git commit commands.
+# `foo && git commit` 처럼 체인된 것도 잡는다 -- 안 그러면 우회된다.
+if ! echo "$COMMAND" | grep -qE '(^|[;&|(])[[:space:]]*git[[:space:]]+([^;&|]*[[:space:]])?commit([[:space:]]|$)'; then
     exit 0
 fi
+
+# 커밋은 사용자가 직접 승인한다. 아래 검증은 경고일 뿐 멈추지 않으므로(exit 0),
+# 실제로 멈추는 건 이 승인 게이트다.
+ask_user() {
+    echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"커밋은 사용자 승인이 필요합니다."}}'
+    exit 0
+}
 
 # Get staged files
 STAGED=$(git diff --cached --name-only 2>/dev/null)
 if [ -z "$STAGED" ]; then
-    exit 0
+    ask_user
 fi
 
 WARNINGS=""
@@ -93,9 +101,9 @@ if [ -n "$SRC_FILES" ]; then
     done <<< "$SRC_FILES"
 fi
 
-# Print warnings (non-blocking) and allow commit
+# Print warnings (non-blocking), then ask the user to approve the commit
 if [ -n "$WARNINGS" ]; then
     echo -e "=== Commit Validation Warnings ===$WARNINGS\n================================" >&2
 fi
 
-exit 0
+ask_user

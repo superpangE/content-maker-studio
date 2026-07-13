@@ -16,7 +16,8 @@ else
 fi
 
 # Only process git push commands
-if ! echo "$COMMAND" | grep -qE '^git[[:space:]]+push'; then
+# `foo && git push` 처럼 체인된 것도 잡는다 -- 안 그러면 우회된다.
+if ! echo "$COMMAND" | grep -qE '(^|[;&|(])[[:space:]]*git[[:space:]]+([^;&|]*[[:space:]])?push([[:space:]]|$)'; then
     exit 0
 fi
 
@@ -39,9 +40,8 @@ done
 if [ -n "$MATCHED_BRANCH" ]; then
     echo "Push to protected branch '$MATCHED_BRANCH' detected." >&2
     echo "Reminder: Ensure build passes, unit tests pass, and no S1/S2 bugs exist." >&2
-    # Allow the push but warn -- uncomment below to block instead:
-    # echo "BLOCKED: Run tests before pushing to $CURRENT_BRANCH" >&2
-    # exit 2
 fi
 
+# 푸시는 사용자가 직접 승인한다. 위 보호브랜치 검사는 경고일 뿐 멈추지 않는다.
+echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"푸시는 사용자 승인이 필요합니다."}}'
 exit 0
