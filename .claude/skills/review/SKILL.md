@@ -210,6 +210,7 @@ format `publish.py` expects:
 ---
 title: <제목>
 tags: [태그1, 태그2, ...]
+place: <가게·장소 이름>
 ---
 
 본문 문단…
@@ -217,7 +218,18 @@ tags: [태그1, 태그2, ...]
 [사진: 02-메뉴판.jpg — 트러플 파스타 24,000원]
 
 다음 문단…
+
+#태그1 #태그2 #태그3
 ```
+
+**`place:` — 가게·장소가 있는 후기(맛집·장소·여행)에는 항상 넣는다.** `publish.py`가
+네이버 에디터의 장소 첨부 버튼을 눌러 **장소 카드(지도·주소·길찾기)를 글 끝에 붙인다.**
+이걸 빠뜨리면 주소를 본문에 텍스트로만 적게 되고, 검색 노출에서도 손해다 — 실제로 한 번
+빠뜨렸다. 해외 가게로 네이버 장소 DB에 없으면 `scripts/naver/mapshot.py`로 지도 이미지를
+그려 사진으로 올린다. 제품 후기처럼 장소가 없는 글에만 `place:`를 생략한다.
+
+**해시태그는 본문 맨 끝에 한 줄로 모은다.** 문단 사이에 흩뿌리지 않는다
+(`brand-voice.md`의 규칙 — 읽는 흐름이 끊긴다).
 
 **`naver.md` is what the public will read. Nothing internal belongs in it.**
 
@@ -252,10 +264,18 @@ The script is headless and reads `secrets/naver-session.json`. Handle its exit
 codes:
 
 - **0** — published. It prints the post URL as JSON.
+- **2** — no session file at all (`secrets/naver-session.json` missing). Same fix
+  as 3: the user runs `login.py` once.
 - **3** — session expired. Tell the user to run
   `python3 scripts/naver/login.py --blog-id <아이디>` once (a browser opens,
   they log in, the session is saved), then re-run `/review` — it resumes at
-  publish since `naver.md` already exists. Do NOT try to log in on their behalf.
+  publish since `naver.md` already exists.
+
+  You may **launch** `login.py` yourself (run it in the background — it opens a
+  headed browser and waits up to 5 minutes). What you must never do is type the
+  user's ID/password or handle their credentials: naver flags scripted logins,
+  2FA needs their phone anyway, and their password would land in your command
+  history. The browser is yours to open; the login is theirs to do.
 - **4** — the editor's DOM changed and a selector missed. The script saves a
   screenshot to `<folder>/publish-failure.png`. Read it, report what you see,
   and offer to fix the selector — do not retry blindly.
