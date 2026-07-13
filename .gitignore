@@ -17,6 +17,7 @@ production/session-logs/
 # === Content Output (generated posts, not for version control) ===
 content/posts/
 content/shorts/
+content/reviews/
 
 # === Internal Planning (not for public) ===
 
@@ -119,6 +120,8 @@ node_modules/
 *.key
 credentials.json
 secrets.json
+# 로그인된 네이버 세션 쿠키. 이 파일 = 계정 접근권. 절대 커밋 금지.
+secrets/
 
 # === Large Binary Assets (use Git LFS instead) ===
 # Uncomment and configure with Git LFS for your project:
@@ -146,3 +149,6 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 *.lnk
+
+# === Python venv ===
+.venv/

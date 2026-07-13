@@ -43,6 +43,18 @@ Claude Code 세션 안에서:
 
 예: `/blog 맛집` · `/shorts 국내야구`
 
+### 후기 블로그 (`/review`)
+
+사진과 대충 한 설명을 주면 네이버 블로그에 후기를 **직접 발행**합니다. 사진에서
+가격·상호·날짜를 읽고, 모자란 건 되묻고, 검색으로 채우고, 글을 써서 올립니다.
+
+```
+/review ~/Desktop/성수동파스타 어제 다녀온 곳, 트러플 파스타 맛있었음
+```
+
+- **[docs/review-pipeline.md](docs/review-pipeline.md)** — 흐름·톤·준비 과정
+- **[docs/naver-editor-notes.md](docs/naver-editor-notes.md)** — 네이버 에디터 자동화에서 걸린 함정들
+
 설정을 건너뛰어도 기본값으로 동작하며 `/blog`·`/shorts` 첫 실행 때 형태 example이 없으면 1회 물어봅니다.
 
 ---
